@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://civicai-backend.onrender.com/api/:path*"
+      "destination": "https://civicai-backend-bvht.onrender.com/api/:path*"
     }
   ]
 }
