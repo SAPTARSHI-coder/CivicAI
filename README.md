@@ -11,7 +11,7 @@
 
 *CivicAI helps citizens understand dense official documents, check their eligibility for government programs, and get personalized, step-by-step action plans in their native language.*
 
-**This Project was done by Team Code_Crafters, as their Hackathon Submission for MLH HackDays, hosted by Major League Hacking and GDG on Campus Techno Mains Salt Lake.**
+**This Project was done by Team Code Crafters, as their Hackathon Submission for MLH HackDays, hosted by Major League Hacking and GDG on Campus Techno Mains Salt Lake.**
 
 </div>
 
