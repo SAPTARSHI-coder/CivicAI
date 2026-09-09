@@ -1,0 +1,1 @@
+Extract an actionable, step-by-step checklist of tasks the citizen needs to complete, highlighting any required forms, fees, deadlines, or relevant government offices.

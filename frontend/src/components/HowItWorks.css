@@ -1,0 +1,61 @@
+.how {
+  padding: 78px 0;
+  background: var(--paper-100);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.how-title {
+  font-size: 32px;
+  margin-top: 12px;
+  margin-bottom: 44px;
+}
+
+.how-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.how-step {
+  padding: 0 22px 0 0;
+  border-left: 1px solid var(--line);
+  padding-left: 22px;
+}
+
+.how-step:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.how-n {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--seal-600);
+  margin-bottom: 14px;
+}
+
+.how-step h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.how-step p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-700);
+}
+
+@media (max-width: 900px) {
+  .how-steps { grid-template-columns: 1fr 1fr; row-gap: 34px; }
+  .how-step:nth-child(3) { border-left: none; padding-left: 0; }
+}
+@media (max-width: 560px) {
+  .how-steps { grid-template-columns: 1fr; }
+  .how-step { border-left: none; padding-left: 0; }
+}

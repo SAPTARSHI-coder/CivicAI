@@ -1,0 +1,51 @@
+.footer {
+  background: var(--ink-900);
+  color: var(--paper-50);
+}
+
+.footer-row {
+  padding: 46px 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.footer .brand-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.footer-tag {
+  margin-top: 6px;
+  color: #B9C3DA;
+  font-size: 14px;
+}
+
+.footer-langs .eyebrow { color: var(--saffron-500); }
+
+.lang-pills {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lang-pill {
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 13px;
+}
+
+.footer-note {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #8B98B8;
+  max-width: 34ch;
+}
+
+@media (max-width: 760px) {
+  .footer-row { grid-template-columns: 1fr; }
+}

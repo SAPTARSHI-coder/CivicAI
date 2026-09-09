@@ -1,0 +1,46 @@
+.impact {
+  padding: 84px 0 90px;
+}
+
+.impact-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+}
+
+.impact-title {
+  font-size: 28px;
+  margin-top: 14px;
+  max-width: 22ch;
+}
+
+.impact-body {
+  margin-top: 20px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink-700);
+  max-width: 44ch;
+}
+
+.audience-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.audience-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 19px;
+}
+
+.audience-list li:first-child {
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 820px) {
+  .impact-row { grid-template-columns: 1fr; }
+}

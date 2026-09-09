@@ -1,0 +1,1 @@
+Examine the eligibility criteria stated or implied in the document. Determine the citizen's eligibility status ('likely', 'action-needed', or 'confirmed') and provide clear, plain-language guidance on any qualifications or thresholds required.
