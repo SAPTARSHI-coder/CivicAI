@@ -49,23 +49,26 @@ async def analyze_document(
         )
 
     # 3. Construct prompt
-    prompt = f"""
-    You are CivicAI, a helpful public service assistant. A user has uploaded an official document.
-    Analyze the following extracted text from the document.
-    
-    Document Text:
-    ---
-    {extracted_text}
-    ---
-    
-    Perform the following tasks:
-    1. Explain what this document is and what it says in plain language.
-    2. Assess the user's eligibility for whatever scheme or action is mentioned.
-    3. Provide a step-by-step checklist of actions the user needs to take (with deadlines if applicable).
-    4. Detect any missing documents that the user still needs to provide.
-    
-    IMPORTANT: You must translate the ENTIRE response (explanation, eligibility text, checklist items, missing documents) into {language}.
-    """
+    prompt = f"""You are CivicAI, an intelligent public service assistant. Your job is to analyse official Indian government documents, citizen identity documents/certificates (e.g. Aadhaar Card, Ration Card, PAN Card, Voter ID, Income/Caste Certificate, Land Records), and government welfare schemes.
+
+SCOPE INSTRUCTION:
+- ACCEPT: Indian government schemes, official notices, and citizen identity documents/certificates (including Aadhaar Card, Ration Card, Voter ID, Income/Caste Certificate, Land Records).
+- REJECT ONLY: Entirely non-governmental or off-topic content (such as election vote counts, political party campaigning, news articles, shopping invoices, entertainment, or spam).
+
+Document Text:
+---
+{extracted_text}
+---
+
+Perform the following tasks based on the document text:
+1. Explain what this document is and what it says in plain language (for citizen documents like an Aadhaar Card, identify the card holder, issuing authority, proof purpose, and key advisories printed on it).
+2. Assess the citizen's eligibility: explain what government welfare schemes, public services, and entitlements this document connects to or qualifies them for (e.g., DBT subsidies, welfare schemes, Jan Dhan, Ration, scholarships).
+3. Provide a step-by-step checklist of actionable steps the citizen needs to take (e.g. keeping contact details updated, biometric locking in mAadhaar, 10-year document re-validation, bank DBT linking, application procedures).
+4. List any missing documents or supplementary paperwork needed to claim full welfare benefits.
+
+IMPORTANT: Translate the ENTIRE response into {language}.
+IMPORTANT: Base your analysis on the document text and authentic Indian public service procedures. Do NOT discuss politics or election results.
+"""
 
     # 4. Call Provider
     ai_service = get_provider(provider)

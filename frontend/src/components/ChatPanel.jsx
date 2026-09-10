@@ -42,12 +42,26 @@ export default function ChatPanel({ sessionId, provider, currentLanguage }) {
       })
 
       if (!res.ok) {
-        const errData = await res.json().catch(() => ({}))
-        const errorMsg = errData?.error?.message || errData?.detail || 'Chat request failed'
+        let errorMsg = `Server error (${res.status})`
+        try {
+          const errData = await res.json()
+          errorMsg = errData?.error?.message || errData?.detail || errorMsg
+        } catch {
+          const text = await res.text().catch(() => '')
+          if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+            errorMsg = `The backend server is starting up (${res.status}). Please wait 10–15 seconds and try again.`
+          }
+        }
         throw new Error(errorMsg)
       }
-      const data = await res.json()
-      
+
+      let data
+      try {
+        data = await res.json()
+      } catch {
+        throw new Error('The server returned an unexpected response. Please try again.')
+      }
+
       setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
     } catch (err) {
       console.error(err)

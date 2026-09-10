@@ -1,0 +1,24 @@
+name: Keep Render Backend Alive
+
+on:
+  schedule:
+    # Ping every 10 minutes — Render free tier sleeps after 15 min of inactivity
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # allow manual trigger from GitHub Actions tab
+
+jobs:
+  ping:
+    name: Ping health endpoint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render backend
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 30 \
+            https://civicai-backend-bvht.onrender.com/api/v1/health)
+          echo "Health endpoint returned HTTP $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Backend is alive"
+          else
+            echo "⚠️  Backend returned $STATUS — it may still be waking up"
+          fi

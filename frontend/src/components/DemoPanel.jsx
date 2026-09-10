@@ -97,14 +97,29 @@ export default function DemoPanel() {
         method: 'POST',
         body: formData,
       })
-      
+
       if (!res.ok) {
-        const errData = await res.json()
-        const errorMsg = errData?.error?.message || errData?.detail || 'Analysis failed'
+        // Safely parse error — if backend returns HTML (e.g. Render cold-start 503),
+        // res.json() would throw the "unexpected token '<'" error, so we guard it.
+        let errorMsg = `Server error (${res.status})`
+        try {
+          const errData = await res.json()
+          errorMsg = errData?.error?.message || errData?.detail || errorMsg
+        } catch {
+          const text = await res.text().catch(() => '')
+          if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+            errorMsg = `The backend server is starting up (${res.status}). Please wait 10–15 seconds and try again.`
+          }
+        }
         throw new Error(errorMsg)
       }
-      
-      const data = await res.json()
+
+      let data
+      try {
+        data = await res.json()
+      } catch {
+        throw new Error('The server returned an unexpected response. Please try again.')
+      }
       setDocResult(data)
       setStatus('done')
     } catch (err) {
