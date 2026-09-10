@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 
@@ -7,73 +7,6 @@ export default function ChatPanel({ sessionId, provider, currentLanguage }) {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   
-  const [isListening, setIsListening] = useState(false)
-  const [speechError, setSpeechError] = useState('')
-  const recognitionRef = useRef(null)
-
-  // Initialize SpeechRecognition if available
-  useEffect(() => {
-    // Show a warning if we are not in a secure context (which blocks the mic)
-    if (window.isSecureContext === false && window.location.hostname !== 'localhost') {
-      setSpeechError('Warning: Microphone requires a secure HTTPS context.')
-    }
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-    if (SpeechRecognition) {
-      const recognition = new SpeechRecognition()
-      recognition.continuous = false
-      recognition.interimResults = true
-      
-      recognition.onstart = () => {
-        setIsListening(true)
-        setSpeechError('')
-      }
-      
-      recognition.onresult = (event) => {
-        let finalTranscript = ''
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript
-          }
-        }
-        if (finalTranscript) {
-          setInput(prev => prev + ' ' + finalTranscript.trim())
-        }
-      }
-      
-      recognition.onerror = (event) => {
-        // Expose the literal event.error string so it's easy to debug
-        setSpeechError(`Error: ${event.error}`)
-        setIsListening(false)
-      }
-      
-      recognition.onend = () => {
-        setIsListening(false)
-      }
-      
-      recognitionRef.current = recognition
-    }
-  }, [])
-
-  const toggleListen = () => {
-    if (isListening) {
-      recognitionRef.current?.stop()
-    } else {
-      setSpeechError('')
-      // Try to set language for recognition to match current context if possible
-      if (recognitionRef.current) {
-        recognitionRef.current.lang = currentLanguage === 'English' ? 'en-US' : (currentLanguage === 'Hindi' ? 'hi-IN' : 'en-US')
-        try {
-          recognitionRef.current.start()
-        } catch (err) {
-          console.warn("Speech recognition error:", err)
-        }
-      } else {
-        setSpeechError('Speech recognition not supported in this browser.')
-      }
-    }
-  }
-
   const speakText = (text) => {
     if (!('speechSynthesis' in window)) return
     
@@ -127,10 +60,6 @@ export default function ChatPanel({ sessionId, provider, currentLanguage }) {
   return (
     <div className="chat-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <h3 style={{ marginTop: 0, marginBottom: '1rem', fontSize: '1.1rem' }}>Ask a follow-up question</h3>
-      
-      {speechError && (
-        <div style={{ color: '#ef4444', fontSize: '0.85rem', marginBottom: '0.5rem', fontWeight: 500 }}>{speechError}</div>
-      )}
 
       <div className="chat-messages" style={{ flex: 1, overflowY: 'auto', minHeight: '200px', maxHeight: '400px', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         {messages.length === 0 ? (
@@ -204,25 +133,6 @@ export default function ChatPanel({ sessionId, provider, currentLanguage }) {
           style={{ flex: 1, padding: '0.75rem', borderRadius: '24px', border: '1px solid #cbd5e1' }}
           disabled={loading}
         />
-        
-        {/* Web Speech API Mic Button */}
-        {('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) && (
-          <motion.button
-            type="button"
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleListen}
-            className={`mic-btn ${isListening ? 'listening' : ''}`}
-            title="Dictate message"
-            style={{
-              width: '40px', height: '40px', borderRadius: '50%', border: 'none', 
-              background: isListening ? '#ef4444' : '#f1f5f9', color: isListening ? 'white' : 'black',
-              cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem'
-            }}
-          >
-            {isListening ? '🛑' : '🎤'}
-          </motion.button>
-        )}
 
         <motion.button 
           whileHover={{ scale: 1.05 }}
