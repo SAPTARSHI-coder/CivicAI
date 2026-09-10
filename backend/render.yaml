@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: civicai-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: ENABLE_DOCS
+        value: "false"
+      - key: BACKEND_CORS_ORIGINS
+        value: "https://your-frontend.vercel.app"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: SNOWFLAKE_ACCOUNT
+        sync: false
+      - key: SNOWFLAKE_USER
+        sync: false
+      - key: SNOWFLAKE_PASSWORD
+        sync: false
+      - key: SNOWFLAKE_WAREHOUSE
+        sync: false
+      - key: SNOWFLAKE_DATABASE
+        sync: false
+      - key: SNOWFLAKE_SCHEMA
+        sync: false
+      - key: SNOWFLAKE_ROLE
+        sync: false

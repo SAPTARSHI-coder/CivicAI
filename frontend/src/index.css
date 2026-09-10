@@ -1,0 +1,132 @@
+/* ============================================================
+   CivicAI — Design Tokens
+   Palette drawn from official paperwork: ledger paper, indigo
+   registry ink, a marigold stamp, and a wax-seal red for what
+   needs attention now.
+   ============================================================ */
+:root {
+  /* Color */
+  --paper-50: #FBF8F0;
+  --paper-100: #F1EAD8;
+  --ink-900: #1C2A48;
+  --ink-700: #33456E;
+  --ink-500: #5B6E96;
+  --saffron-500: #E2932E;
+  --saffron-600: #C97918;
+  --seal-600: #A63A2E;
+  --seal-100: #F4E1DB;
+  --line: #D9CFB4;
+  --white: #FFFFFF;
+
+  /* Type */
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Layout */
+  --max-width: 1180px;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --shadow-card: 0 1px 2px rgba(28, 42, 72, 0.06), 0 8px 24px rgba(28, 42, 72, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper-50);
+  color: var(--ink-900);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    linear-gradient(var(--paper-100) 1px, transparent 1px);
+  background-size: 100% 44px;
+  background-attachment: local;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--ink-900);
+}
+
+p { margin: 0; }
+
+a { color: inherit; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--seal-600);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  padding: 13px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ink-900);
+  outline-offset: 3px;
+}
+.btn-primary {
+  background: var(--ink-900);
+  color: var(--paper-50);
+}
+.btn-primary:hover {
+  background: var(--ink-700);
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink-900);
+}
+.btn-ghost:hover {
+  border-color: var(--ink-900);
+}
+
+/* Torn / perforated section divider — the stub of an official
+   form you keep, the rest filed away. */
+.perforation {
+  height: 24px;
+  width: 100%;
+  background-image: radial-gradient(circle, var(--paper-50) 5px, transparent 5.5px);
+  background-size: 22px 22px;
+  background-position: center;
+  background-color: var(--ink-900);
+}

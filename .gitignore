@@ -1,0 +1,28 @@
+# Node
+node_modules/
+dist/
+.npm/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+venv/
+*.egg-info/
+
+# Environment
+.env
+
+# Testing & Caches
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+test_*.png
+test_*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
