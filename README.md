@@ -144,5 +144,5 @@ The React frontend provides the modern, animated user interface.
 
 ---
 <div align="center">
-  <i>Built with ❤️ for Civic Innovation.</i>
+  <i>Built with love for Civic Innovation.</i>
 </div>
